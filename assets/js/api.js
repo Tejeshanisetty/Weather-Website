@@ -1,23 +1,27 @@
-/**
- * @license MIT
- * @fileoverview All api related stuff like api_key, api request etc.
- * @copyright codewithsadee 2023 All rights reserved
- * @author codewithsadee <mohammadsadee24@gmail.com>
- */
+
 
 'use strict';
 
-const api_key = "36bd224193758a4cb9129d775ec3fd6e";
+
+
 
 /**
  * Fetch data from server
  * @param {string} URL API url
  * @param {Function} callback callback
  */
+
 export const fetchData = function (URL, callback) {
-  fetch(`${URL}&appid=${api_key}`)
+  // Fetch the API key from config.json
+  fetch('./config.json')
+    .then(response => response.json())
+    .then(config => {
+      const api_key = config.API_KEY;
+      return fetch(`${URL}&appid=${api_key}`);
+    })
     .then(res => res.json())
-    .then(data => callback(data));
+    .then(data => callback(data))
+    .catch(error => console.error('Error loading API key or data:', error));
 }
 
 export const url = {
