@@ -16,7 +16,8 @@ export const fetchData = function (URL, callback) {
   fetch('./config.json')
     .then(response => response.json())
     .then(config => {
-      const api_key = config.API_KEY;
+      //const api_key = config.API_KEY;
+      const api_key = "36bd224193758a4cb9129d775ec3fd6e";
       return fetch(`${URL}&appid=${api_key}`);
     })
     .then(res => res.json())
